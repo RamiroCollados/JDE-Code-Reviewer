@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" onDragExited="#DragDone" prefHeight="586.0" prefWidth="844.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JDECodeReviewer.JDECodeReviewerController">
+    <children>
+      <TextField fx:id="txtPathInput" layoutX="85.0" layoutY="45.0" prefHeight="25.0" prefWidth="525.0" />
+      <Button layoutX="616.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#OpenFile" prefHeight="25.0" prefWidth="214.0" stylesheets="@../StyleSheets/ButtonsStyles.css" text="View Code" textFill="#141414">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Text fx:id="txtCodeLines" layoutX="221.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="229.99999156594276" />
+      <Button fx:id="btnBrowse" layoutX="18.0" layoutY="46.0" mnemonicParsing="false" onAction="#BrowseFileButton" stylesheets="@../StyleSheets/ButtonsStyles.css" text="Browse">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Separator layoutX="9.0" layoutY="160.0" prefHeight="16.0" prefWidth="834.0" />
+      <Text layoutX="18.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Browse or drag the code to review:" wrappingWidth="203.13671875">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <TabPane layoutX="18.0" layoutY="168.0" prefHeight="415.0" prefWidth="825.0" stylesheets="@../StyleSheets/StylesTab.css" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Variables">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="755.0">
+                     <children>
+                        <Text layoutX="4.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Variables not beeing used" wrappingWidth="148.9999998807907">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <ListView fx:id="ListVariablesNotUsed" layoutX="4.0" layoutY="22.0" onKeyPressed="#CopyLineVarNotUsed" onMouseClicked="#VarNotUsedTooltip" prefHeight="360.0" prefWidth="255.0" />
+                        <ListView fx:id="VariablesNamingData" layoutX="558.0" layoutY="22.0" onKeyPressed="#CopyLineVarPoorlyNamed" onMouseClicked="#VarBadNameTooltip" prefHeight="360.0" prefWidth="255.0" />
+                        <Text layoutX="558.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Poorly named variables" wrappingWidth="168.13671875">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <ListView fx:id="PoorlyUsedVars" layoutX="274.0" layoutY="22.0" onKeyPressed="#CopyLineVarPoorlyUsed" onMouseClicked="#VarWrongUseTooltip" prefHeight="360.0" prefWidth="269.0" />
+                        <Text layoutX="274.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Poorly used variables" wrappingWidth="229.99999156594276">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Tables">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="6.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tables in use" wrappingWidth="84.96093790978193">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <ListView fx:id="TablesUsed" layoutX="6.0" layoutY="21.0" onKeyPressed="#OpenCodeButton" onKeyReleased="#CopyLineTables" onMouseClicked="#SelectLineAndSaveTables" prefHeight="360.0" prefWidth="383.0" />
+                        <ListView fx:id="QuerisToRevList" layoutX="397.0" layoutY="21.0" onKeyPressed="#OpenCodeButton" onKeyReleased="#CopyLineTablesRev" onMouseClicked="#SelectLineAndSaveTablesRev" prefHeight="360.0" prefWidth="416.0" />
+                        <Text layoutX="397.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Queries to review">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Functions">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="397.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Functions in code" wrappingWidth="229.99999156594276">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <ListView fx:id="FunctionsCalledList" layoutX="397.0" layoutY="21.0" onKeyPressed="#OpenCodeButton" onKeyReleased="#CopyLineFunctions" onMouseClicked="#SaveLineAndSaveBSFNUsed" prefHeight="360.0" prefWidth="416.0" />
+                        <Text layoutX="6.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Functions" wrappingWidth="168.13671875">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <ListView fx:id="DuplicityCallsList" layoutX="6.0" layoutY="21.0" onMouseClicked="#FunctionCallsFilterClick" prefHeight="360.0" prefWidth="383.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Missing">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="MNamesList" layoutX="5.0" layoutY="21.0" onKeyPressed="#OpenCodeButton" onMouseClicked="#SaveLineAndSaveMissingNames" prefHeight="170.0" prefWidth="415.0" />
+                        <ListView fx:id="BSFNNotFound" layoutX="5.0" layoutY="215.0" onKeyPressed="#OpenCodeButton" onMouseClicked="#SaveLineAndSaveBSFNNotFound" prefHeight="167.0" prefWidth="415.0" />
+                        <Text layoutX="5.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Missing Names found" wrappingWidth="125.00001037120819">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="5.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bussines Function not found" wrappingWidth="204.8203125">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <ListView fx:id="ParamNotPassedList" layoutX="434.0" layoutY="21.0" onKeyPressed="#OpenCodeButton" onKeyReleased="#CopyLineParamNotPassed" onMouseClicked="#SaveLineAndSaveParamNotPassed" prefHeight="362.0" prefWidth="379.0" />
+                        <Text layoutX="434.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Parameters not passed" wrappingWidth="144.13671492040157">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Com/Const">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="378.0" prefWidth="760.0">
+                     <children>
+                        <ListView fx:id="CommentCodeList" layoutX="6.0" layoutY="22.0" onKeyPressed="#OpenCodeButton" onKeyReleased="#CopyLineCommented" onMouseClicked="#SaveLineAndSaveCommentedCode" prefHeight="170.0" prefWidth="806.0" />
+                        <Text layoutX="6.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commented Code" wrappingWidth="115.13671875">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <ListView fx:id="ConstantsFound" layoutX="6.0" layoutY="213.0" onKeyPressed="#OpenCodeButton" onKeyReleased="#CopyLineConstants" onMouseClicked="#SaveLineAndSaveConstantsCode" prefHeight="170.0" prefWidth="806.0" />
+                        <Text layoutX="6.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Constants found" wrappingWidth="127.13671875">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Conditions">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="ConditionsList" layoutX="6.0" layoutY="22.0" onKeyPressed="#OpenCodeButton" onKeyReleased="#CopyLineConditions" onMouseClicked="#SelectLineAndSave" prefHeight="198.0" prefWidth="806.0" />
+                        <Text layoutX="6.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If / Whiles" wrappingWidth="254.13672421872616">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="6.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If / Whiles to review" wrappingWidth="157.13671875">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <ListView fx:id="ConditionsToRev" layoutX="5.0" layoutY="244.0" prefHeight="139.0" prefWidth="806.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Duplicated">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="386.0" prefWidth="786.0">
+                     <children>
+                        <ListView fx:id="duplicatedCodeList" layoutX="6.0" layoutY="22.0" onKeyPressed="#OpenCodeButton" onKeyReleased="#copyLineDuplicated" onMouseClicked="#saveLineAndSaveDuplicated" prefHeight="360.0" prefWidth="805.0" />
+                        <Text layoutX="6.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duplicated code:" wrappingWidth="135.13671875">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Call UBE/APPL">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="CallUBEAPPList" layoutX="6.0" layoutY="22.0" onKeyPressed="#OpenCodeButton" onKeyReleased="#CopyLineCallUBEAPPL" onMouseClicked="#SaveLineAndSaveCallsAPPLUBE" prefHeight="360.0" prefWidth="805.0" />
+                        <Text layoutX="6.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Call UBE/APPL" wrappingWidth="144.13671875">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="SectionsTab" text="Sections">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="Sections" layoutX="6.0" layoutY="21.0" prefHeight="204.0" prefWidth="437.0" />
+                        <ListView fx:id="SectionsCalled" layoutX="470.0" layoutY="21.0" prefHeight="204.0" prefWidth="342.0" />
+                        <Text layoutX="6.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sections with code" wrappingWidth="115.13671875">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="470.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sections called" wrappingWidth="86.13669741153717">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="445.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="numberOfSections" layoutX="121.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="125.0" />
+                        <Text fx:id="numberOfSectionsCalled" layoutX="540.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="45.0" />
+                        <Text layoutX="6.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set user selection" wrappingWidth="186.13671875">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <ListView fx:id="SetUserSelectionList" layoutX="5.0" layoutY="248.0" onKeyPressed="#OpenCodeButton" onKeyReleased="#CopyLineSetUsers" onMouseClicked="#SelectLineAndSaveSerUsers" prefHeight="136.0" prefWidth="808.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="FormsTab" text="Forms">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="Forms" layoutX="5.0" layoutY="22.0" prefHeight="360.0" prefWidth="437.0" />
+                        <Text layoutX="5.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forms with code" wrappingWidth="118.13671875">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="444.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Text>
+                        <ListView fx:id="FormsCalled" layoutX="475.0" layoutY="22.0" prefHeight="360.0" prefWidth="335.0" />
+                        <Text layoutX="475.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forms Called">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="numberOfForms" layoutX="107.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="68.0" />
+                        <Text fx:id="numberOfFormsCalled" layoutX="555.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="28.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="NERsTab" text="NERs">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="ListedNERs" layoutX="8.0" layoutY="22.0" prefHeight="360.0" prefWidth="802.0" />
+                        <Text layoutX="8.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NERs listed" wrappingWidth="184.13671875">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <ImageView fx:id="StatusImage" fitHeight="33.0" fitWidth="38.0" layoutX="20.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true" />
+      <CheckBox fx:id="CompareCheckbox" layoutX="85.0" layoutY="75.0" mnemonicParsing="false" onMouseClicked="#CompCheckBoxClicked" text="Compare" />
+      <Button layoutX="806.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#OpenHelpScreen" prefHeight="7.0" prefWidth="12.0" stylesheets="@../StyleSheets/ButtonsStyles.css" text="?">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnExpCompare" layoutX="616.0" layoutY="104.0" mnemonicParsing="false" onMouseClicked="#GenerateCompareExportFile" prefHeight="25.0" prefWidth="214.0" stylesheets="@../StyleSheets/ButtonsStyles.css" text="Export compare" />
+      <Button fx:id="btnExportHTML" layoutX="616.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#GenerateExportHTML" prefHeight="25.0" prefWidth="214.0" stylesheets="@../StyleSheets/ButtonsStyles.css" text="Export Result" />
+    </children>
+</AnchorPane>

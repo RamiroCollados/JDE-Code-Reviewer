@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" fx:id="AnchorPane" prefHeight="666.0" prefWidth="813.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JDECodeReviewer.JDECodeReviewerHelpScreenController">
+   <children>
+      <TextArea fx:id="GenCommandText" editable="false" focusTraversable="false" layoutY="86.0" prefHeight="344.0" prefWidth="813.0" text="* Browse or drag in order to analyze the code. &#10;   Draging the code will automatically read the file.&#10;   Otherwise click on &quot;Read&quot; button.&#10;&#10;* Compare:&#10;   Activate this feature if you want to compare the current code with another one. &#10;   Drag or browse the new code and the application will read the files automatically.&#10;* Export Compare button:&#10;   Generates a text file with all the differences found bewteen the compared codes.&#10;&#10;*Export Result:&#10; Generates an HTML file with the results.&#10;&#10;* Lines to watch:&#10;   This feature allows the user to select the amount of lines to be opened from tab infromation.&#10;&#10;&#10;&#10;" AnchorPane.bottomAnchor="236.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="86.0">
+         <cursor>
+            <Cursor fx:constant="NONE" />
+         </cursor></TextArea>
+      <Text layoutX="6.0" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Application information and Instructions:" underline="true" wrappingWidth="255.13671875">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="6.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This application was made in order to analyze JDEdwards code. " wrappingWidth="545.13671875" />
+      <Text layoutX="6.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All observations made from it respect the general programming standards." wrappingWidth="516.13671875" />
+      <Text layoutX="6.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="General Commands:" wrappingWidth="206.13671875">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="#da0c0c" layoutX="129.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do not use code with line numbers on it or application functions will be affected." wrappingWidth="437.13671875" />
+      <Text fill="#f00c0c" layoutX="14.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IMPORTANT NOTE:" wrappingWidth="115.13671875">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <TextArea fx:id="TabInfoText" editable="false" focusTraversable="false" layoutY="429.0" prefHeight="240.0" prefWidth="813.0" text="Variables:&#10;  - Variables missued: variables that have not been used in the code.&#10;  - Variables poorly used: variables that appear in code but they do not affect logic opperators or instructions.&#10;  - Variables poorly named: variables that do not follow the Oracle naming conventions.&#10;&#10; Tables:&#10;  - Tables in use: all querys made from the code with direct instruction (Insert, Delete, Update, Fetch, etc)&#10;  - Queries to review: all querys made from the code that should not be done. Example: direct delete to F4211 table.&#10;&#10;Functions:&#10;   - Functions: shows all functions called from the code and how many times.&#10;   - Functions in code: when a function is clicked in &quot;Functions&quot; list, &quot;Functions in code&quot; list will be filtered.&#10;&#10;Missing:&#10;   - Missing names found: listed MISSING_NAME found in code.&#10;   - Business function not found: listed BUSINESS FUNCTION NOT FOUND found in code.&#10;   - Parameters not passed: listed lines of parameters not correctly passed in functions or querys.&#10;&#10;Conditions:&#10;   - If/Whiles: listed conditions that appear in code.&#10;&#10;Conditions To Review:&#10;   - If/Whiles conditions that might have to be analyzed since there are some anomalies detected.&#10;&#10;Duplicated Code:&#10;   - Displays code that appear more than 1 time. It does not mean an error but should be analyzed to avoid duplicity.&#10;  &#10;Call UBE/APPL&#10;  - Call UBE/APPL: list calls to reports or applications/forms.&#10;&#10;Com/Const:&#10;  - Commented Code: shows all commented code.&#10;  - Constants Found: shows all constants in code. Fixed values will be excluded like &quot;1&quot;, &quot;Y&quot;, &quot;N&quot;, &quot;0&quot;, &quot; &quot;, etc.&#10;&#10;Sections:&#10;  - Sections with code: shows all sections that contain code.&#10;  - Sections called: shows all sections called from the report. (&quot;Do Custom Section(*****) ).&#10;  - Set User Selection: shows all the Set User Selection function calls made in code.&#10;&#10;Forms:&#10;  - Forms with code: shows all forms that contain code.&#10;  - Forms called: shows all forms called from the application&#10;&#10;NER:&#10;  - NER listed: all functions included in the NER code. &#10;&#10;&#10;&#10;&#10;&#10;&#10;" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="429.0" />
+      <Text layoutX="6.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tabs information:" wrappingWidth="178.13671875">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="57.0" fitWidth="126.0" layoutX="459.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/comparehelp.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="54.0" fitWidth="176.0" layoutX="279.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/browsedraghelp.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="29.0" fitWidth="200.0" layoutX="509.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/linestohelp.png" />
+         </image>
+      </ImageView>
+      <Text fill="#176515" layoutX="6.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Use the spacebar when a list line is selected to open the code." wrappingWidth="393.13671875">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="#176515" layoutX="6.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* List lines can be copied with CTRL+C." wrappingWidth="393.13672305922955">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="29.0" fitWidth="200.0" layoutX="230.0" layoutY="272.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/Export%20Result%20Button.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
