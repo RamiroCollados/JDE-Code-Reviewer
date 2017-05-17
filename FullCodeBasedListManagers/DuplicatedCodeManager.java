@@ -1,7 +1,3 @@
-/**
-Author: Ramiro Collaods
-* This class retrieves a list of duplicated lines of code.
- */
 package FullCodeBasedListManagers;
 
 import java.util.Collections;
@@ -10,10 +6,10 @@ import javafx.collections.ObservableList;
 
 public class DuplicatedCodeManager {
     private  ObservableList<String> codeList = FXCollections.observableArrayList();
-    private  ObservableList<String> duplicatedCodeList = FXCollections.observableArrayList();
-    private  ObservableList<String> codeListToReview = FXCollections.observableArrayList();
+    private final ObservableList<String> duplicatedCodeList = FXCollections.observableArrayList();
+    private final ObservableList<String> codeListToReview = FXCollections.observableArrayList();
     
-    private  String[] invalidStrings = {" //","// ","!" , "Else", "End If" , "End While", "***" , "---","===", "EVENT:",
+    private final String[] invalidStrings = {" //","// ","!" , "Else", "End If" , "End While", "***" , "---","===", "EVENT:",
                                         "EVENTS", "SECTION:", "->" , "<-", "<>", "TK ", "FORM:", "OBJECT:", "OPT:", "Listing of",
                                         "GLOBALS:" , " X " , "CONTROL:" , "NAMED ER:"};
     
@@ -45,21 +41,20 @@ public class DuplicatedCodeManager {
         return validLineFlag;   
     }
     
-    private ObservableList<String> prepareCodeListToEvaluate(){
+    private void prepareCodeListToEvaluate(){
         for (String codeLine : codeList) {
             if(validLineFound(codeLine)){
                 codeListToReview.add(codeLine.trim());
             }
         }
-        
-        return codeListToReview;
+
     }
 
     public void writeDuplicatedCodeList (){     
         ObservableList<String> codeProcessedList = FXCollections.observableArrayList();
         int lineNumber = 0;
-        int ocurrences = 0;
-        String fullLine = null;
+        int ocurrences;
+        String fullLine;
  
         prepareCodeListToEvaluate();
         

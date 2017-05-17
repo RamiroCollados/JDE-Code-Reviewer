@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 
 
 public class ParametersNotPassedManager {
-    private  ObservableList<String> parametersNotPassedList = FXCollections.observableArrayList();
+    private final ObservableList<String> parametersNotPassedList = FXCollections.observableArrayList();
 
     public ObservableList<String> getParametersNotPassedList() {
         return parametersNotPassedList;

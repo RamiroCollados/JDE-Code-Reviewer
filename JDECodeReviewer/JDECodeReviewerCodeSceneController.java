@@ -4,7 +4,6 @@ package JDECodeReviewer;
 import Various.CodeListCellFactory;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -38,7 +37,7 @@ public class JDECodeReviewerCodeSceneController implements Initializable  {
     private AnchorPane stage2;
     
     private int getCodeLineNumber(String codeLine){
-        int lineNumber = 0;
+        int lineNumber;
         
         codeLine = codeLine.trim();
         codeLine = codeLine.substring(codeLine.indexOf(":")+1, codeLine.indexOf(" "));
@@ -51,7 +50,7 @@ public class JDECodeReviewerCodeSceneController implements Initializable  {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        String lineCompare=null;
+        String lineCompare;
         int lineNumber=0;
 
         String path = JDECodeReviewerController.getFilePath();      
@@ -76,7 +75,7 @@ public class JDECodeReviewerCodeSceneController implements Initializable  {
 
                 Code.scrollTo(getCodeLineNumber(codeLine));
 
-            } catch (Exception e) { 
+            } catch (Exception ignored) {
             } 
             
         }else{
@@ -101,8 +100,6 @@ public class JDECodeReviewerCodeSceneController implements Initializable  {
                 Code.setCellFactory(new CodeListCellFactory()); 
                 Code.setEditable(true);
                 
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(JDECodeReviewerCodeSceneController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(JDECodeReviewerCodeSceneController.class.getName()).log(Level.SEVERE, null, ex);
             }

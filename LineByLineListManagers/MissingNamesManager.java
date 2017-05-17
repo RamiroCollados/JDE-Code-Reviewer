@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 public class MissingNamesManager {
     
-    private ObservableList<String>  missingNamesList = FXCollections.observableArrayList();
+    private final ObservableList<String>  missingNamesList = FXCollections.observableArrayList();
 
     public ObservableList<String> getMissingNamesList() {
         return missingNamesList;

@@ -13,7 +13,7 @@ public class FunctionsCalledListFilter {
     
     private ObservableList<String>  list;
     
-    private ObservableList<String>  listCopy;
+    private final ObservableList<String>  listCopy;
 
     public FunctionsCalledListFilter(ObservableList<String>  list) {
         this.list = list;
@@ -34,9 +34,9 @@ public class FunctionsCalledListFilter {
             if(!listLine.equals("*** All ***")){
                 int lineLength=listLine.length()-4;
                 listLine=listLine.substring(0,lineLength).trim();
-                for (int i = 0; i < list.size(); i++) {
-                    if(list.get(i).contains(listLine)){
-                        filteredsList.add(list.get(i));
+                for (String aList : list) {
+                    if (aList.contains(listLine)) {
+                        filteredsList.add(aList);
                     }
                 }         
                 list = filteredsList;

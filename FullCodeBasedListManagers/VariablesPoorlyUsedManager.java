@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 
 
 public class VariablesPoorlyUsedManager {
-    private ObservableList<String> variablesPoorlyUsedList = FXCollections.observableArrayList();
+    private final ObservableList<String> variablesPoorlyUsedList = FXCollections.observableArrayList();
     private ObservableList<String> variablesFoundList = FXCollections.observableArrayList();
 
     public void setVariablesFoundList(ObservableList<String> variablesFoundList) {
@@ -28,13 +28,13 @@ public class VariablesPoorlyUsedManager {
         for (String codeLine : codeList) {
             if(codeLine.contains(variable)){
 
-                int indexStartingVar=0;
-                int indexOfCharacter=0;
-                int indexFull=0;
-                int indexOfCommaBegin=0;
-                int indexOfCommaEnd=0;
-                int VarNameLength=0;
-                String lineToValidate=null;
+                int indexStartingVar;
+                int indexOfCharacter;
+                int indexFull;
+                int indexOfCommaBegin;
+                int indexOfCommaEnd;
+                int VarNameLength;
+                String lineToValidate;
 
                 VarNameLength=variable.length();
                 indexStartingVar=codeLine.indexOf(variable);
@@ -143,7 +143,7 @@ public class VariablesPoorlyUsedManager {
     
     
     public void writeVariablesPoorlyUsedList (ObservableList<String> codeList){
-        int [] timesUsed = {0,0,0,0,0};
+        int [] timesUsed;
                 
         for (String variable : variablesFoundList) {
             

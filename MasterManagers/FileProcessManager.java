@@ -7,7 +7,6 @@ package MasterManagers;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import javafx.collections.FXCollections;
@@ -18,8 +17,8 @@ public class FileProcessManager {
     private String pathInput = null; 
     private ListMasterManager listMasterManager = new ListMasterManager();
     private ObservableList<String> codeList = FXCollections.observableArrayList();
-    private ObservableList<String> codeListWithLineNumbers = FXCollections.observableArrayList();
-    private ObservableList<String> comparedCodeList = FXCollections.observableArrayList();
+    private final ObservableList<String> codeListWithLineNumbers = FXCollections.observableArrayList();
+    private final ObservableList<String> comparedCodeList = FXCollections.observableArrayList();
 
     public FileProcessManager(String pathInput, ListMasterManager listMasterManager) {
         this.pathInput = pathInput;
@@ -36,11 +35,11 @@ public class FileProcessManager {
 
     
     
-    public void initializeCodeLists () throws FileNotFoundException, IOException{
+    public void initializeCodeLists () throws IOException{
         FileInputStream fstream = new FileInputStream(pathInput);
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
         
-        String codeLine = null; 
+        String codeLine;
         int lineNumber = 0; 
         
         while ((codeLine = br.readLine()) != null){  
@@ -54,11 +53,11 @@ public class FileProcessManager {
         br.close();
     }
     
-    public void initializeCodeListForCompare(ObservableList<String> codeList) throws FileNotFoundException, IOException{
+    public void initializeCodeListForCompare(ObservableList<String> codeList) throws IOException{
         FileInputStream fstream = new FileInputStream(pathInput);
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
         
-        String codeLine = null; 
+        String codeLine;
         int lineNumber = 0; 
         
         while ((codeLine = br.readLine()) != null){  
@@ -96,7 +95,7 @@ public class FileProcessManager {
     }
     
     
-    public void processListManagers() throws IOException{
+    public void processListManagers() {
         processLineByLineLists();
         processFullCodeBasedLists();
     }

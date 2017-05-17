@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 public class FormsCalledManager {
     
-    private ObservableList<String> formsCalledList = FXCollections.observableArrayList();
+    private final ObservableList<String> formsCalledList = FXCollections.observableArrayList();
 
     public ObservableList<String> getFormsCalledList() {
         return formsCalledList;
@@ -37,6 +37,8 @@ public class FormsCalledManager {
         index = codeLine.indexOf(" ");
 
         codeLine = codeLine.substring(0, index);
+
+        /* BUG: Review this! result of trim is ignored! */
         codeLine.trim();
         
         return codeLine;

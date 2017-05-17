@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 public class CommentedCodeManager {
     
-    private  ObservableList<String> commentedCodeList = FXCollections.observableArrayList();
+    private final ObservableList<String> commentedCodeList = FXCollections.observableArrayList();
 
     public ObservableList<String> getCommentedCodeList() {
         return commentedCodeList;

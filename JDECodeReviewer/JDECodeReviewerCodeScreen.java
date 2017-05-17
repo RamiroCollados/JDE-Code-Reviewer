@@ -31,7 +31,7 @@ public class JDECodeReviewerCodeScreen extends Application {
 
         try {
              stage.getIcons().add(new Image("/Images/Icon2.png"));
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         stage.show();

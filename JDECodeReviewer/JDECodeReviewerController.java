@@ -10,7 +10,6 @@ import Various.FunctionsCalledListFilter;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -48,16 +47,14 @@ import javax.swing.ToolTipManager;
 
 public class JDECodeReviewerController implements Initializable {
     //Global variables
-    public static String filePath;
+    private static String filePath;
     public static String line;
-    public static String lineLimit;
-    public static boolean compareBeenProcessed=false;
     public static boolean variableCodeScreen = false;
 
-    public Tooltip mousePositionToolTip = new Tooltip("");
-    public ObservableList<String> functionsCalledCopy = FXCollections.observableArrayList();
-    public ObservableList<String> codeLinesListWithLineNumbers = FXCollections.observableArrayList();
-    public ObservableList<String> codeLinesList = FXCollections.observableArrayList();
+    private final Tooltip mousePositionToolTip = new Tooltip("");
+    private ObservableList<String> functionsCalledCopy = FXCollections.observableArrayList();
+    private ObservableList<String> codeLinesListWithLineNumbers = FXCollections.observableArrayList();
+    private ObservableList<String> codeLinesList = FXCollections.observableArrayList();
     
     //FXML Variables
     @FXML
@@ -84,6 +81,7 @@ public class JDECodeReviewerController implements Initializable {
     private ListView<String> VariablesNamingData;
     @FXML 
     private ListView<String> ConditionsList;
+    /* FIXME: Never used, review */
     @FXML
     private ComboBox<String> LinesComboBox;
     @FXML
@@ -143,12 +141,7 @@ public class JDECodeReviewerController implements Initializable {
     public static String getFilePath() {
         return filePath;
     }
-    
-    public static String getLineLimit() {
-        return lineLimit;
-    }
-    
-    
+
     //Init//
     @Override
     public void initialize(URL url, ResourceBundle rb)  {
@@ -174,14 +167,14 @@ public class JDECodeReviewerController implements Initializable {
             command=command.replaceAll("\\\\", "\"\\\\\"");
             command=command.replaceFirst("\"", "");
 
-            Process child = Runtime.getRuntime().exec(command);  
+            Runtime.getRuntime().exec(command);
         }
     }
       
     @FXML
     private void BrowseFileButton(ActionEvent event) throws IOException {
-        boolean compareTriggered=false;
 
+        /* BUG: stage is always null Review */
         Component stage = null;
         String userDir = System.getProperty("user.home");
         
@@ -194,7 +187,7 @@ public class JDECodeReviewerController implements Initializable {
             File file = fileChooser.getSelectedFile();
             txtPathInput.setText(file.getAbsolutePath());
             filePath=file.getAbsolutePath();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }    
         
         txtPathInput.setText(filePath);
@@ -212,7 +205,7 @@ public class JDECodeReviewerController implements Initializable {
                     codeScreen.start(stage);
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -238,16 +231,16 @@ public class JDECodeReviewerController implements Initializable {
             PrintWriter pw = new PrintWriter(file); 
             
             String previousLine=null;
-            
-            for (int i = 0; i < codeLinesList.size(); i++) {             
-                
-                if(!codeLinesList.get(i).isEmpty()){
-                    if(!codeLinesList.get(i).equals(previousLine)){
-                        pw.println(codeLinesList.get(i));
+
+            for (String aCodeLinesList : codeLinesList) {
+
+                if (!aCodeLinesList.isEmpty()) {
+                    if (!aCodeLinesList.equals(previousLine)) {
+                        pw.println(aCodeLinesList);
                     }
                 }
-                
-                previousLine=codeLinesList.get(i);
+
+                previousLine = aCodeLinesList;
             }
             
             pw.close();
@@ -264,7 +257,6 @@ public class JDECodeReviewerController implements Initializable {
         //HTML GENERATION CALL
         HTMLGenerator HTMLGenerator = new HTMLGenerator();
         //set data to generate
-        HTMLGenerator.setFilePath(filePath);
         HTMLGenerator.setCodeList(codeLinesListWithLineNumbers);
         
         HTMLGenerator.setListVariablesNotUsed(ListVariablesNotUsed);
@@ -288,7 +280,7 @@ public class JDECodeReviewerController implements Initializable {
         try {
             HTMLGenerator.generateHTML();
             openHTMLFile();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         } 
     }
     
@@ -299,7 +291,7 @@ public class JDECodeReviewerController implements Initializable {
     @FXML
     private void SelectLineAndSave(MouseEvent event) throws IOException {
         String line = ConditionsList.getSelectionModel().getSelectedItem();        
-        this.line=line;
+        JDECodeReviewerController.line =line;
         if(line != null){
             JDECodeReviewerCodeSceneController.setCodeLine(line);      
             showAndSetTooltip(ConditionsList); 
@@ -309,7 +301,7 @@ public class JDECodeReviewerController implements Initializable {
     @FXML
     private void SaveLineAndSaveMissingNames(MouseEvent event) throws IOException {
         String line = MNamesList.getSelectionModel().getSelectedItem();        
-        this.line=line;
+        JDECodeReviewerController.line =line;
         if(line != null){
             JDECodeReviewerCodeSceneController.setCodeLine(line);      
             showAndSetTooltip(MNamesList); 
@@ -319,7 +311,7 @@ public class JDECodeReviewerController implements Initializable {
     @FXML
     private void SaveLineAndSaveBSFNNotFound(MouseEvent event) throws IOException {
         String line = BSFNNotFound.getSelectionModel().getSelectedItem();        
-        this.line=line;
+        JDECodeReviewerController.line =line;
         if(line != null){
             JDECodeReviewerCodeSceneController.setCodeLine(line);
             showAndSetTooltip(BSFNNotFound); 
@@ -329,7 +321,7 @@ public class JDECodeReviewerController implements Initializable {
     @FXML
     private void SaveLineAndSaveBSFNUsed(MouseEvent event) throws IOException {  
         String line = FunctionsCalledList.getSelectionModel().getSelectedItem();        
-        this.line=line;
+        JDECodeReviewerController.line =line;
         
         if(line != null){
             JDECodeReviewerCodeSceneController.setCodeLine(line);  
@@ -340,7 +332,7 @@ public class JDECodeReviewerController implements Initializable {
     @FXML
     private void SaveLineAndSaveParamNotPassed(MouseEvent event) throws IOException {
         String line = ParamNotPassedList.getSelectionModel().getSelectedItem();        
-        this.line=line;
+        JDECodeReviewerController.line =line;
         
         if(line != null){
             JDECodeReviewerCodeSceneController.setCodeLine(line);
@@ -351,7 +343,7 @@ public class JDECodeReviewerController implements Initializable {
     @FXML
     private void SaveLineAndSaveCallsAPPLUBE(MouseEvent event) throws IOException {
         String line = CallUBEAPPList.getSelectionModel().getSelectedItem();        
-        this.line=line;
+        JDECodeReviewerController.line =line;
         
         if(line != null){
             JDECodeReviewerCodeSceneController.setCodeLine(line);  
@@ -362,7 +354,7 @@ public class JDECodeReviewerController implements Initializable {
     @FXML
     private void SaveLineAndSaveCommentedCode(MouseEvent event) throws IOException {
         String line = CommentCodeList.getSelectionModel().getSelectedItem();        
-        this.line=line;
+        JDECodeReviewerController.line =line;
         
         if(line != null){
             JDECodeReviewerCodeSceneController.setCodeLine(line);  
@@ -373,7 +365,7 @@ public class JDECodeReviewerController implements Initializable {
     @FXML
     private void SelectLineAndSaveTables(MouseEvent event) throws IOException {
         String line = TablesUsed.getSelectionModel().getSelectedItem();        
-        this.line=line;
+        JDECodeReviewerController.line =line;
         
         if(line != null){
             JDECodeReviewerCodeSceneController.setCodeLine(line);
@@ -385,7 +377,7 @@ public class JDECodeReviewerController implements Initializable {
     @FXML
     private void SelectLineAndSaveTablesRev(MouseEvent event) throws IOException {
         String line = QuerisToRevList.getSelectionModel().getSelectedItem();        
-        this.line=line;
+        JDECodeReviewerController.line =line;
         
         if(line != null){
             JDECodeReviewerCodeSceneController.setCodeLine(line);  
@@ -396,7 +388,7 @@ public class JDECodeReviewerController implements Initializable {
     @FXML
     private void SaveLineAndSaveConstantsCode(MouseEvent event) throws IOException {
         String line = ConstantsFound.getSelectionModel().getSelectedItem();        
-        this.line=line;
+        JDECodeReviewerController.line =line;
         
         if(line != null){
             JDECodeReviewerCodeSceneController.setCodeLine(line);       
@@ -407,7 +399,7 @@ public class JDECodeReviewerController implements Initializable {
     @FXML
     private void SelectLineAndSaveSerUsers(MouseEvent event) throws IOException {
         String line = SetUserSelectionList.getSelectionModel().getSelectedItem();        
-        this.line=line;
+        JDECodeReviewerController.line =line;
         
         if(line != null){
             JDECodeReviewerCodeSceneController.setCodeLine(line);        
@@ -418,7 +410,7 @@ public class JDECodeReviewerController implements Initializable {
     @FXML
     private void saveLineAndSaveDuplicated(MouseEvent event) throws IOException {
         String line = duplicatedCodeList.getSelectionModel().getSelectedItem();        
-        this.line=line;
+        JDECodeReviewerController.line =line;
         
         if(line != null){
             JDECodeReviewerCodeSceneController.setCodeLine(line);        
@@ -473,19 +465,8 @@ public class JDECodeReviewerController implements Initializable {
                SystemClipboard.copy(JDECodeReviewerController.line);
             }   
         });
-        
-        JDECodeReviewerCodeScreen codeScreen = new JDECodeReviewerCodeScreen();
-        Stage stage = new Stage();
 
-        try {
-            if(!JDECodeReviewerController.line.isEmpty()){  
-                if(event.getCode().toString().equals("SPACE")){
-                    variableCodeScreen=true;
-                    codeScreen.start(stage);
-                }
-            }
-        } catch (Exception e) {
-        } 
+        startNewCodeScreen(event);
         variableCodeScreen=false;
     }
     
@@ -501,19 +482,8 @@ public class JDECodeReviewerController implements Initializable {
                SystemClipboard.copy(JDECodeReviewerController.line);
             }   
         });
-        
-        JDECodeReviewerCodeScreen codeScreen = new JDECodeReviewerCodeScreen();
-        Stage stage = new Stage();
 
-        try {
-            if(!JDECodeReviewerController.line.isEmpty()){   
-                if(event.getCode().toString().equals("SPACE")){
-                    variableCodeScreen=true;
-                    codeScreen.start(stage);
-                }
-            }
-        } catch (Exception e) {
-        }
+        startNewCodeScreen(event);
         variableCodeScreen=false;
     }
     
@@ -529,22 +499,26 @@ public class JDECodeReviewerController implements Initializable {
                SystemClipboard.copy(JDECodeReviewerController.line);
             }   
         });
-        
+
+        startNewCodeScreen(event);
+        variableCodeScreen=false;
+    }
+
+    private void startNewCodeScreen(KeyEvent event) {
         JDECodeReviewerCodeScreen codeScreen = new JDECodeReviewerCodeScreen();
         Stage stage = new Stage();
 
         try {
-            if(!JDECodeReviewerController.line.isEmpty()){    
+            if(!JDECodeReviewerController.line.isEmpty()){
                 if(event.getCode().toString().equals("SPACE")){
                     variableCodeScreen=true;
                     codeScreen.start(stage);
                 }
             }
-        } catch (Exception e) {
-        } 
-        variableCodeScreen=false;
+        } catch (Exception ignored) {
+        }
     }
-    
+
     @FXML
     private void CopyLineConditions(KeyEvent event) {
         String line = ConditionsList.getSelectionModel().getSelectedItem();
@@ -719,25 +693,25 @@ public class JDECodeReviewerController implements Initializable {
             command=command.replaceAll("\\\\", "\"\\\\\"");
             command=command.replaceFirst("\"", "");
 
-            Process child = Runtime.getRuntime().exec(command);  
+            Runtime.getRuntime().exec(command);
         }
     }
     
-    private String[] getSectionAndEventOfLine(String line) throws FileNotFoundException, IOException{
+    private String[] getSectionAndEventOfLine(String line) {
         String [] retrievedData = {"","",""} ;
         char lineChar;
-        String lineNumber="";
-        int lineNumberInt=0;
+        StringBuilder lineNumber= new StringBuilder();
+        int lineNumberInt;
         String bufferLine;
         
         
         for (int i = 5; i < 10; i++) {
             lineChar = line.charAt(i);
             if(Character.isDigit(lineChar)){
-                lineNumber=lineNumber+lineChar;
+                lineNumber.append(lineChar);
             }    
         }
-        lineNumberInt = Integer.parseInt(lineNumber);
+        lineNumberInt = Integer.parseInt(lineNumber.toString());
         
         for (int i = 1; i < lineNumberInt; i++) {
             bufferLine=codeLinesListWithLineNumbers.get(i);
@@ -759,7 +733,7 @@ public class JDECodeReviewerController implements Initializable {
         return retrievedData;
     }
     
-    private String[] getVarEventSection(String line) throws FileNotFoundException, IOException{
+    private String[] getVarEventSection(String line) {
         String[] retrievedData = {"",""} ;
         String bufferLine;
         
@@ -787,12 +761,12 @@ public class JDECodeReviewerController implements Initializable {
         return retrievedData;
     }
     
-    private void showAndSetTooltip(ListView<String> list) throws IOException{
+    private void showAndSetTooltip(ListView<String> list) {
         //Tooltip EVENT AND SECTION
-        String msg = null;
-        String [] SectionEventData ={"","",""}; 
-        if(!list.getItems().isEmpty()){           
-            SectionEventData=getSectionAndEventOfLine(list.getSelectionModel().getSelectedItem()); 
+        String msg;
+        String[] SectionEventData;
+        if(!list.getItems().isEmpty()){
+            SectionEventData=getSectionAndEventOfLine(list.getSelectionModel().getSelectedItem());
             //If not found do not show tooltip
             if(!SectionEventData[0].equals("")){
                 //If Control found, format it
@@ -810,9 +784,9 @@ public class JDECodeReviewerController implements Initializable {
         } 
     }
     
-    private void showAndSetTooltipForVars(ListView<String> list) throws IOException{
+    private void showAndSetTooltipForVars(ListView<String> list) {
         //Tooltip EVENT AND SECTION
-        String [] SectionEventData ={"",""}; 
+        String [] SectionEventData;
         String varPrefix= list.getSelectionModel().getSelectedItem();
         varPrefix=varPrefix.substring(0, 3);
         

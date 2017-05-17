@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 public class BSFNNotFoundManager {
     
-    private ObservableList<String> bSFNNotFoundList = FXCollections.observableArrayList();
+    private final ObservableList<String> bSFNNotFoundList = FXCollections.observableArrayList();
 
     public ObservableList<String> getbSFNNotFoundList() {
         return bSFNNotFoundList;

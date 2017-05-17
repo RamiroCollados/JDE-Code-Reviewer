@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 public class ConstantsFoundManager {
     
-    private ObservableList<String> constantsFoundList = FXCollections.observableArrayList();
+    private final ObservableList<String> constantsFoundList = FXCollections.observableArrayList();
 
     public ObservableList<String> getConstantsFoundList() {
         return constantsFoundList;
@@ -20,11 +20,11 @@ public class ConstantsFoundManager {
     
     private boolean findConstantsInString(String line){
         boolean flag=false;
-        int position1=0;
-        int position2=0;
-        String lineToEvaluate=null;
-        char[] lineToEvaluateArray=null;
-        String constantFound=null;
+        int position1;
+        int position2;
+        String lineToEvaluate;
+        char[] lineToEvaluateArray;
+        String constantFound;
         
         int count = 0;
         
@@ -37,14 +37,10 @@ public class ConstantsFoundManager {
             }
 
             if(count<=2){
-                if(line.contains("\"1")||line.contains("\"0") ||line.contains("\"2") ||line.contains("\"3") ||line.contains("\"4") ||line.contains("\"5") ||line.contains("\"6")
-                         ||line.contains("\"7") ||line.contains("\"8") ||line.contains("\"9")||line.contains("\"R")||line.contains("\"W")||line.contains("\"C")
-                        ||line.contains("\"S")||line.contains("\"N")||line.contains("\"Y")||line.contains("\"N")||line.contains("\"/")
-                        ||line.contains("\"\"")){
-                    flag=false;
-                }else{
-                    flag=true;
-                }
+                flag = !(line.contains("\"1") || line.contains("\"0") || line.contains("\"2") || line.contains("\"3") || line.contains("\"4") || line.contains("\"5") || line.contains("\"6")
+                        || line.contains("\"7") || line.contains("\"8") || line.contains("\"9") || line.contains("\"R") || line.contains("\"W") || line.contains("\"C")
+                        || line.contains("\"S") || line.contains("\"N") || line.contains("\"Y") || line.contains("\"N") || line.contains("\"/")
+                        || line.contains("\"\""));
                 
             }else{
                 if(count>2){
@@ -72,23 +68,18 @@ public class ConstantsFoundManager {
                         
                         constantFound=lineToEvaluate.substring(0,position2);
 
-                        if(constantFound.contains("\"1")||constantFound.contains("\"0")||constantFound.contains("\"2")||constantFound.contains("\"3")||constantFound.contains("\"4")
-                                ||constantFound.contains("\"5")||constantFound.contains("\"6")||constantFound.contains("\"7")||constantFound.contains("\"8")||constantFound.contains("\"9")
-                                ||constantFound.contains("\"S")||constantFound.contains("\"N")||constantFound.contains("\"Y")||constantFound.contains("\"R")||constantFound.contains("\"W")
-                                ||constantFound.contains("\"C")||constantFound.contains("\"/")
-                                ||constantFound.contains("\"N")){
-                            flag=false;
-                        }else{
-                            flag=true;
-                                
-                        }
+                        flag = !(constantFound.contains("\"1") || constantFound.contains("\"0") || constantFound.contains("\"2") || constantFound.contains("\"3") || constantFound.contains("\"4")
+                                || constantFound.contains("\"5") || constantFound.contains("\"6") || constantFound.contains("\"7") || constantFound.contains("\"8") || constantFound.contains("\"9")
+                                || constantFound.contains("\"S") || constantFound.contains("\"N") || constantFound.contains("\"Y") || constantFound.contains("\"R") || constantFound.contains("\"W")
+                                || constantFound.contains("\"C") || constantFound.contains("\"/")
+                                || constantFound.contains("\"N"));
                         
                         lineToEvaluate=lineToEvaluate.substring(position2,lineToEvaluate.length());
                         position1=lineToEvaluate.indexOf("\"");
                         try {                            
                             lineToEvaluate=lineToEvaluate.substring(position1,lineToEvaluate.length());
                             lineToEvaluateArray=lineToEvaluate.toCharArray();
-                        } catch (Exception e) {   
+                        } catch (Exception ignored) {
                         }
  
                     }

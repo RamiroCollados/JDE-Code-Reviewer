@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 public class FormsManager {
     
-    private ObservableList<String> formsList = FXCollections.observableArrayList();
+    private final ObservableList<String> formsList = FXCollections.observableArrayList();
 
     public ObservableList<String> getFormsList() {
         return formsList;
@@ -33,7 +33,7 @@ public class FormsManager {
         return codeLine;
     }
     
-    public void writeFormsInCodeList(String lineNumber, String codeLine){
+    public void writeFormsInCodeList(String codeLine){
         if(findFormInString(codeLine)){
             codeLine = formatLineToWriteInList(codeLine);
             formsList.add(codeLine);
