@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 
 
 public class QueriesInCodeManager {
-    private ObservableList<String> queriesInCodeList = FXCollections.observableArrayList();
+    private final ObservableList<String> queriesInCodeList = FXCollections.observableArrayList();
 
     public ObservableList<String> getQueriesInCodeList() {
         return queriesInCodeList;

@@ -5,7 +5,6 @@ This class is responsible of writting the HTML output generatede by the program.
 package HTMLGeneration;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,10 +21,9 @@ import javafx.scene.control.ListView;
 public class HTMLGenerator {
     // Attributes
     public static String htmlFilePath=null;
-    
-    private String filePath = null;
+
     private  ObservableList<String> codeList = FXCollections.observableArrayList();
-    private ObservableList<String> tablesWritten = FXCollections.observableArrayList();
+    private final ObservableList<String> tablesWritten = FXCollections.observableArrayList();
     private int errorListCounter=0;
     private  ListView<String> ListVariablesNotUsed = new ListView<>();
     private  ListView<String> TablesUsed = new ListView<>();
@@ -44,10 +42,6 @@ public class HTMLGenerator {
     private  ListView<String> ConditionsToRev = new ListView<>();
     private  ListView<String> duplicatedCodeList = new ListView<>();
     //Setters
-    
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
 
     public void setCodeList(ObservableList<String> codeList) {
         this.codeList = codeList;
@@ -139,7 +133,7 @@ public class HTMLGenerator {
     //Methods
     private String getHTMLfileTitle (){
         String fileTitle=null;
-        String strippedCodeLine = null;
+        String strippedCodeLine;
         
         for (String codeLine : codeList) {
             strippedCodeLine = codeLine.substring(codeLine.indexOf(" "));
@@ -158,7 +152,8 @@ public class HTMLGenerator {
                 }               
             }
         }
-        
+
+        assert fileTitle != null;
         fileTitle = fileTitle.replaceAll("[^a-zA-Z0-9\\s]", "");
         fileTitle = fileTitle.trim().replaceAll(" +", " ");
         
@@ -167,7 +162,7 @@ public class HTMLGenerator {
     }
     
     private String getResultMessage(){
-        String messageResult=null;
+        String messageResult;
         
         if(errorListCounter>3){
             //error
@@ -186,7 +181,7 @@ public class HTMLGenerator {
     }
     
     private String getCSSStyleForResultMessage(){
-        String style=null;
+        String style;
         
         if(errorListCounter>3){
             //error
@@ -220,10 +215,10 @@ public class HTMLGenerator {
         pw.println("</div>");
     }
     
-    private void writeCSSFile (PrintWriter pw) throws FileNotFoundException, IOException{    
+    private void writeCSSFile (PrintWriter pw) throws IOException{
         InputStream in = getClass().getResourceAsStream("/StyleSheets/HTMLStyle.css"); 
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
-        String strLine=null;
+        String strLine;
 
         while ((strLine = br.readLine()) != null){ 
                 pw.println(strLine);  
@@ -268,8 +263,8 @@ public class HTMLGenerator {
     }
     
     private void writeReviewResult(PrintWriter pw){
-        String messageResult=null;
-        String style=null;
+        String messageResult;
+        String style;
         
         messageResult=getResultMessage();
         style=getCSSStyleForResultMessage();
@@ -296,8 +291,8 @@ public class HTMLGenerator {
     
     private void writeListsToTables(PrintWriter pw, ListView<String> list, String tableHeader){
     // This method will write tables of each list. The div tag will save the id of each table to use links later.
-    String strippedCodeLine=null;
-    String lineNumberText=null;
+    String strippedCodeLine;
+    String lineNumberText;
 
         if(!list.getItems().isEmpty()){
             pw.println("<div id=\""+tableHeader+"\">");
@@ -324,7 +319,7 @@ public class HTMLGenerator {
     }
     
     private void writeErrorLists(PrintWriter pw){
-        String tableHeader = null;
+        String tableHeader;
         
         if(errorListCounter>0){
             pw.println("<h2>Possible errors found:</h2>");
@@ -357,7 +352,7 @@ public class HTMLGenerator {
     }
     
     private void writeInfoLists(PrintWriter pw){
-        String tableHeader=null;
+        String tableHeader;
 
         pw.println("<h2>Information:</h2>");
 

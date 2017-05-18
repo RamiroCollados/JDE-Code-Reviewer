@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 public class SectionsCalledManager {
     
-    private  ObservableList<String> sectionsCalledList = FXCollections.observableArrayList();
+    private final ObservableList<String> sectionsCalledList = FXCollections.observableArrayList();
 
     public ObservableList<String> getSectionsCalledList() {
         return sectionsCalledList;

@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 
 public class VariableFinder {
     private ObservableList<String> codeList = FXCollections.observableArrayList();
-    private ObservableList<String> variablesList = FXCollections.observableArrayList();
+    private final ObservableList<String> variablesList = FXCollections.observableArrayList();
 
     public VariableFinder(ObservableList<String> codeList) {
         this.codeList = codeList;

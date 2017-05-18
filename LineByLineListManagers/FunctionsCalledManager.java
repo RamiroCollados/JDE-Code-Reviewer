@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 public class FunctionsCalledManager {
     
-    private ObservableList<String> functionsCalledList = FXCollections.observableArrayList();
+    private final ObservableList<String> functionsCalledList = FXCollections.observableArrayList();
 
     public ObservableList<String> getFunctionsCalledList() {
         return functionsCalledList;

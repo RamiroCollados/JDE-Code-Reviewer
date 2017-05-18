@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 
 
 public class ConditionsManager {
-    private  ObservableList<String> conditionsList = FXCollections.observableArrayList();
+    private final ObservableList<String> conditionsList = FXCollections.observableArrayList();
 
     public ObservableList<String> getConditionsList() {
         return conditionsList;

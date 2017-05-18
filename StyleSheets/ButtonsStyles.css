@@ -16,7 +16,10 @@
 	-fx-background:linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
 	-fx-background-color: steelblue  ;
 }
+
+/* FIXME: No active selector for buttons
 .button:active {
 	-fx-position:relative;
 	-fx-top:1px;
 }
+*/

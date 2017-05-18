@@ -9,15 +9,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
-public class ValidateDuplicityBSFN {
+class ValidateDuplicityBSFN {
     //Class Variables
-    private ListView<String> functionsList = new ListView<String>();
-    private ObservableList<String> codeList = FXCollections.observableArrayList();
+    private final ListView<String> functionsList = new ListView<>();
+    private final ObservableList<String> codeList = FXCollections.observableArrayList();
 
 
     
     //METHOD: to filter functions list and get the duplicated ones only
-    public ObservableList<String> FilterFunctionsList(ListView<String> functionsList){
+    private ObservableList<String> FilterFunctionsList(ListView<String> functionsList){
         ObservableList<String> duppedFunctions = FXCollections.observableArrayList();
         boolean firstDupFound=false;
         
@@ -47,10 +47,10 @@ public class ValidateDuplicityBSFN {
     }
    
     //METHOD: Retrieves a full list of function and their parameters below each function name
-    public ObservableList<String> GetParameters (ObservableList<String> duppedFunctions){
+    private ObservableList<String> GetParameters(ObservableList<String> duppedFunctions){
         
         ObservableList<String> parameters = FXCollections.observableArrayList();
-        String functionStrippedLine=null;
+        String functionStrippedLine;
         int codeIndex=0;
         
         // Loop on functions in code list.
@@ -84,16 +84,12 @@ public class ValidateDuplicityBSFN {
     
     //***MAIN METHOD to be called ***//
     public ListView<String> CheckDuplicity (){
-        ListView<String> duplicityResultList = new ListView<String>();
-
-        ObservableList<String> duppedFunctions = FXCollections.observableArrayList();
-        ObservableList<String> parameters = FXCollections.observableArrayList();
-        
+        ListView<String> duplicityResultList = new ListView<>();
         ObservableList<String> listToCompare=FXCollections.observableArrayList();
         
         //Call methods to retrieve dupped functions and parameters 
-        duppedFunctions=FilterFunctionsList(functionsList);
-        parameters=GetParameters(duppedFunctions);
+        ObservableList<String> duppedFunctions=FilterFunctionsList(functionsList);
+        ObservableList<String> parameters=GetParameters(duppedFunctions);
         
         boolean duplicityFound=false;
         

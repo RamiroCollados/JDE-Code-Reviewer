@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 public class ListedNERsManager {
     
-    private ObservableList<String> listedNERsList = FXCollections.observableArrayList();
+    private final ObservableList<String> listedNERsList = FXCollections.observableArrayList();
 
     public ObservableList<String> getListedNERsList() {
         return listedNERsList;
@@ -32,7 +32,7 @@ public class ListedNERsManager {
         return codeLine;
     }
     
-    public void writeListedNERsList (String lineNumber, String codeLine){
+    public void writeListedNERsList(String codeLine){
         if(findListedNERsInString(codeLine)){
             codeLine = formatLineToWriteInList(codeLine);
             listedNERsList.add(codeLine);

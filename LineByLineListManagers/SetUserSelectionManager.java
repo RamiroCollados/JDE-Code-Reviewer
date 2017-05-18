@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 
 public class SetUserSelectionManager {
     
-    private  ObservableList<String> setUserSelectionList = FXCollections.observableArrayList();
+    private final ObservableList<String> setUserSelectionList = FXCollections.observableArrayList();
 
     public ObservableList<String> getSetUserSelectionList() {
         return setUserSelectionList;

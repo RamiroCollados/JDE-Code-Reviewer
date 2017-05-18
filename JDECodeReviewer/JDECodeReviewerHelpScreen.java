@@ -9,7 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 
-public class JDECodeReviewerHelpScreen {
+class JDECodeReviewerHelpScreen {
     
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/FXMLHelpScreen.fxml"));
@@ -29,7 +29,7 @@ public class JDECodeReviewerHelpScreen {
 
         try {
              stage.getIcons().add(new Image("/Images/Icon2.png"));
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         stage.show();

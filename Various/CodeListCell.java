@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.paint.Color;
 
 
-public class CodeListCell extends ListCell<String>{
+class CodeListCell extends ListCell<String>{
     @Override
     protected void updateItem(String s, boolean empty) {
         String lineToSee;
@@ -32,7 +32,8 @@ public class CodeListCell extends ListCell<String>{
         lineToSee=lineToSee.trim();
         
         try {
-            
+
+            assert s != null;
             if(s.contains("If ") || s.contains("While ")|| s.contains("End If") || s.contains("End While")|| s.endsWith("Else")){
                 setTextFill(Color.LIGHTBLUE);
                 setStyle("-fx-background-color: black");
@@ -56,7 +57,7 @@ public class CodeListCell extends ListCell<String>{
             }
             
             
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         
         this.setText(s);

@@ -11,9 +11,9 @@ import javafx.collections.ObservableList;
 
 
 public class RepeatedFunctionsCalledManager {
-    private ObservableList<String>  repeatedFunctionsList = FXCollections.observableArrayList();
+    private final ObservableList<String>  repeatedFunctionsList = FXCollections.observableArrayList();
     private ObservableList<String> functionsList = FXCollections.observableArrayList();
-    private ObservableList<String> functionsListWithoutLineNumbers = FXCollections.observableArrayList();
+    private final ObservableList<String> functionsListWithoutLineNumbers = FXCollections.observableArrayList();
 
     public ObservableList<String>  getRepeatedFunctionsList() {
         return repeatedFunctionsList;
@@ -26,11 +26,11 @@ public class RepeatedFunctionsCalledManager {
     
     
     private void setFunctionsWithoutNumbersList(ObservableList<String> list){
-        String trimmedLine=null;
-        
-        for (int i = 0; i < list.size(); i++) {
-            trimmedLine=list.get(i);
-            trimmedLine=trimmedLine.substring(11).trim();
+        String trimmedLine;
+
+        for (String aList : list) {
+            trimmedLine = aList;
+            trimmedLine = trimmedLine.substring(11).trim();
 
             functionsListWithoutLineNumbers.add(trimmedLine);
         }
@@ -42,8 +42,8 @@ public class RepeatedFunctionsCalledManager {
     public void writeRepeatedFunctionsList (){
         setFunctionsWithoutNumbersList(functionsList);
         
-        String fullLineToWrite = null;
-        int lineTimes = 0;
+        String fullLineToWrite;
+        int lineTimes;
         
         repeatedFunctionsList.add("*** All ***");    
         for (String codeLine : functionsListWithoutLineNumbers) {

@@ -3,13 +3,11 @@ package JDECodeReviewer;
 
 import java.io.File;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;    
-import javafx.scene.input.DragEvent;
+import javafx.scene.image.Image;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.TransferMode;
@@ -35,41 +33,30 @@ public class JDECodeReviewer extends Application {
         
         try {
              stage.getIcons().add(new Image("/Images/Icon2.png"));
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         // Dropping over surface
-        scene.setOnDragOver(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                Dragboard db = event.getDragboard();
-                if (db.hasFiles()) {
-                    event.acceptTransferModes(TransferMode.COPY);
-                } else {
-                    event.consume();
-                }
+        scene.setOnDragOver(event -> {
+            Dragboard db = event.getDragboard();
+            if (db.hasFiles()) {
+                event.acceptTransferModes(TransferMode.COPY);
+            } else {
+                event.consume();
             }
         });
 
-        scene.setOnDragDropped(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                Dragboard db = event.getDragboard();
-                boolean success = false;
-                if (db.hasFiles()) {
-                    success = true;
-                    String filePath = null;
-                    for (File file:db.getFiles()) {
-                        
-                        filePath = file.getAbsolutePath();
-
-                        JDECodeReviewerController.setFilePath(filePath);
-                        
-                    }
+        scene.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasFiles()) {
+                success = true;
+                for (File file : db.getFiles()) {
+                    JDECodeReviewerController.setFilePath(file.getAbsolutePath());
                 }
-                event.setDropCompleted(success);
-                event.consume();
             }
+            event.setDropCompleted(success);
+            event.consume();
         });
         
         stage.show();

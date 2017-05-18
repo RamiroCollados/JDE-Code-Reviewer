@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 
 
 public class ReportsAndApplCallsManager {
-    private  ObservableList<String> reportsAndAppllCalledList = FXCollections.observableArrayList();
+    private final ObservableList<String> reportsAndAppllCalledList = FXCollections.observableArrayList();
 
     public ObservableList<String> getReportsAndAppllCalledList() {
         return reportsAndAppllCalledList;

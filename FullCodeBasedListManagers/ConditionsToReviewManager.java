@@ -9,10 +9,10 @@ import javafx.collections.ObservableList;
 
 
 public class ConditionsToReviewManager {
-    private  ObservableList<String> conditionsToReviewList = FXCollections.observableArrayList();
+    private final ObservableList<String> conditionsToReviewList = FXCollections.observableArrayList();
     private  ObservableList<String> codeList = FXCollections.observableArrayList();
-    private  ObservableList<String> conditionsList = FXCollections.observableArrayList();
-    private  ObservableList<String> setUserSelectionsList = FXCollections.observableArrayList();
+    private ObservableList<String> conditionsList = FXCollections.observableArrayList();
+    private ObservableList<String> setUserSelectionsList = FXCollections.observableArrayList();
     
     
     public ObservableList<String> getConditionsToReviewList() {
@@ -23,15 +23,15 @@ public class ConditionsToReviewManager {
         this.codeList = codeList;
     }
 
+    /* FIXME: Never used... review
     public void setConditionsList(ObservableList<String> conditionsList) {
         this.conditionsList = conditionsList;
     }
-
+    */
     public void setSetUserSelectionsList(ObservableList<String> setUserSelectionsList) {
         this.setUserSelectionsList = setUserSelectionsList;
     }
 
-    
     
     private void findConditionsInCode (ObservableList<String> codeList){
         for (String codeLine : codeList) {
@@ -64,10 +64,10 @@ public class ConditionsToReviewManager {
         
 //        conditionLine=conditionLine.substring(11).trim();
         int index1 = conditionLine.indexOf(" ");
-        String lineAux=null;
+        String lineAux;
         
         String line = conditionLine.substring(index1, conditionLine.length()).trim();
-        String variable=null;
+        String variable;
 
        // first variable in condition, then we will have to search for And or Or 
 
@@ -84,7 +84,7 @@ public class ConditionsToReviewManager {
         lineAux=line;
         //loop ands
         if(index1!=-1){
-            while(line.indexOf(" And ")!=-1){
+            while(line.contains(" And ")){
               line=line.substring(index1, line.length());
               variable=line.substring(4,line.indexOf(" is "));
               variablesInConditionList.add(variable.trim());  
@@ -122,7 +122,7 @@ public class ConditionsToReviewManager {
 
         return conditionLimitLine;
     }
-    
+    /* FIXME: Never used... review
     private String getElseOfCondition (String condition){
         String conditionLimitLine="nothing";
                 
@@ -133,18 +133,19 @@ public class ConditionsToReviewManager {
 
         return conditionLimitLine;
     }
-    
+    */
+
     private ObservableList<String> getValidCodeInsideCondition (String condition){
         ObservableList<String> codeLinesInsideConditionList = FXCollections.observableArrayList();
-        String endOfCondition = null;
-        String elseOfCondition = null; 
+        String endOfCondition;
+        //String elseOfCondition;
        
         for (int i = 0; i < codeList.size(); i++) {
 
            if(codeList.get(i).contains(condition)){
                for (int j = i+1; j < codeList.size(); j++) {
                     endOfCondition = getEndOfCondition(condition);
-                    elseOfCondition = getElseOfCondition(condition);
+                    //elseOfCondition = getElseOfCondition(condition);
                    
                     if(!codeList.get(j).contains(endOfCondition) && !codeList.get(j).contains("!") 
 //                      && !codeList.get(j).contains(elseOfCondition) 
@@ -166,11 +167,11 @@ public class ConditionsToReviewManager {
     
     private void validateSetUserVariables() {
         //Validates if variables used in Set User Selections are used in conditions
-        int index1 = 0;
-        int index2 = 0;
-        int lineNumber = 0;
-        String variable = null;
-        String fullLine = null;
+        int index1;
+        int index2;
+        int lineNumber;
+        String variable;
+        String fullLine;
                
         
         for (String setUserSelectionLine : setUserSelectionsList) {
@@ -193,11 +194,10 @@ public class ConditionsToReviewManager {
     }
     
     private void validateCommentedCodeInConditions(){
-        ObservableList<String> codeInConditionList = FXCollections.observableArrayList(); 
-        int conditionLineNumber = 0;
+        int conditionLineNumber;
         
         for (String condition : conditionsList){
-            codeInConditionList = getValidCodeInsideCondition(condition);
+            ObservableList<String> codeInConditionList = getValidCodeInsideCondition(condition);
             
             if(codeInConditionList.isEmpty() || (codeInConditionList.get(0).contains("Else") && codeInConditionList.size()==1)){
                 conditionLineNumber = findConditionLineNumber(condition);
@@ -210,13 +210,12 @@ public class ConditionsToReviewManager {
     }
     
     private void validateOnlyElseCode(){
-        ObservableList<String> codeInConditionList = FXCollections.observableArrayList(); 
-        int conditionLineNumber = 0;
-        String fullLine = null;
+        int conditionLineNumber;
+        String fullLine;
         
         for (String condition : conditionsList){
             if(condition.contains("If ")){
-                codeInConditionList = getValidCodeInsideCondition(condition);
+                ObservableList<String> codeInConditionList = getValidCodeInsideCondition(condition);
             
                 if(codeInConditionList.size()>0){
                     if(codeInConditionList.get(0).contains("Else")){
@@ -232,19 +231,16 @@ public class ConditionsToReviewManager {
         }
     }
     
-    private void validateWhileLoop(){ 
-        ObservableList<String> codeInConditionList = FXCollections.observableArrayList(); 
-        ObservableList<String> variablesInCondition = FXCollections.observableArrayList(); 
-        
+    private void validateWhileLoop(){
         boolean fetchFoundFlag = false;
         boolean variableUsedFlag = false;
-        int conditionLineNumber = 0;
-        String fullLine = null; 
+        int conditionLineNumber;
+        String fullLine;
         
         for (String condition : conditionsList){   
             if(condition.contains("While ")){
-                codeInConditionList = getValidCodeInsideCondition(condition);
-                variablesInCondition = retrieveVariablesFromCondition(condition);
+                ObservableList<String> codeInConditionList = getValidCodeInsideCondition(condition);
+                ObservableList<String> variablesInCondition = retrieveVariablesFromCondition(condition);
                 
                 for (String variableInCondition : variablesInCondition) {
                     if(variableInCondition.contains("File_IO_Status")){

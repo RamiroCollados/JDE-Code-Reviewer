@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 
 
 public class VariablesPoorlyNamedManager {
-    private ObservableList<String> variablesPoorlyNamedList = FXCollections.observableArrayList();
+    private final ObservableList<String> variablesPoorlyNamedList = FXCollections.observableArrayList();
     private ObservableList<String> variablesFoundList = FXCollections.observableArrayList();
 
     
@@ -31,9 +31,7 @@ public class VariablesPoorlyNamedManager {
         String[] varPrefix ={"c", "id", "sz", "mn", "jd"};
         String Prefix;
         int counter=0;
-        
-        Character ch = ' ';
-        
+
         //validate first _
         if(characters[3]!='_'){
                 flag=false;            

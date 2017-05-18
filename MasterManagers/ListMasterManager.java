@@ -27,36 +27,35 @@ import FullCodeBasedListManagers.VariablesPoorlyUsedManager;
 import LineByLineListManagers.FormsManager;
 import LineByLineListManagers.RepeatedFunctionsCalledManager;
 import Various.VariableFinder;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
 
 public class ListMasterManager {
     
-    private BSFNNotFoundManager bSFNnotFoundManager = new BSFNNotFoundManager();
-    private CommentedCodeManager commentedCodeManager = new CommentedCodeManager();
-    private ConditionsManager conditionsManager = new ConditionsManager();
-    private ConstantsFoundManager constantsFoundManager = new ConstantsFoundManager();
-    private FormsCalledManager formsCalledManager = new FormsCalledManager();
-    private FormsManager formsManager = new FormsManager();
-    private FunctionsCalledManager functionsCalledManager = new FunctionsCalledManager();
-    private ListedNERsManager listedNERsManager = new ListedNERsManager();
-    private MissingNamesManager missingNamesManager = new MissingNamesManager();
-    private ParametersNotPassedManager parametersNotPassedManager = new ParametersNotPassedManager();
-    private QueriesInCodeManager queriesInCodeManager = new QueriesInCodeManager();
-    private QueriesToReviewManager queriesToReviewManager = new QueriesToReviewManager();
-    private ReportsAndApplCallsManager reportsAndApplCallsManager = new ReportsAndApplCallsManager();
-    private SectionsCalledManager sectionsCalledManager = new SectionsCalledManager();
-    private SectionsManager sectionsManager = new SectionsManager();
-    private SetUserSelectionManager setUserSelectionManager = new SetUserSelectionManager();
-    private RepeatedFunctionsCalledManager repeatedFunctionsCalledManager = new RepeatedFunctionsCalledManager();
+    private final BSFNNotFoundManager bSFNnotFoundManager = new BSFNNotFoundManager();
+    private final CommentedCodeManager commentedCodeManager = new CommentedCodeManager();
+    private final ConditionsManager conditionsManager = new ConditionsManager();
+    private final ConstantsFoundManager constantsFoundManager = new ConstantsFoundManager();
+    private final FormsCalledManager formsCalledManager = new FormsCalledManager();
+    private final FormsManager formsManager = new FormsManager();
+    private final FunctionsCalledManager functionsCalledManager = new FunctionsCalledManager();
+    private final ListedNERsManager listedNERsManager = new ListedNERsManager();
+    private final MissingNamesManager missingNamesManager = new MissingNamesManager();
+    private final ParametersNotPassedManager parametersNotPassedManager = new ParametersNotPassedManager();
+    private final QueriesInCodeManager queriesInCodeManager = new QueriesInCodeManager();
+    private final QueriesToReviewManager queriesToReviewManager = new QueriesToReviewManager();
+    private final ReportsAndApplCallsManager reportsAndApplCallsManager = new ReportsAndApplCallsManager();
+    private final SectionsCalledManager sectionsCalledManager = new SectionsCalledManager();
+    private final SectionsManager sectionsManager = new SectionsManager();
+    private final SetUserSelectionManager setUserSelectionManager = new SetUserSelectionManager();
+    private final RepeatedFunctionsCalledManager repeatedFunctionsCalledManager = new RepeatedFunctionsCalledManager();
     
-    private VariablesNotUsedManager variablesNotUsedManager = new VariablesNotUsedManager();
-    private VariablesPoorlyNamedManager variablesPoorlyNamedManager = new VariablesPoorlyNamedManager();
-    private VariablesPoorlyUsedManager variablesPoorlyUsedManager = new VariablesPoorlyUsedManager();
-    private ConditionsToReviewManager conditionsToReviewManager = new ConditionsToReviewManager();
-    private DuplicatedCodeManager duplicatedCodeManager = new DuplicatedCodeManager();
+    private final VariablesNotUsedManager variablesNotUsedManager = new VariablesNotUsedManager();
+    private final VariablesPoorlyNamedManager variablesPoorlyNamedManager = new VariablesPoorlyNamedManager();
+    private final VariablesPoorlyUsedManager variablesPoorlyUsedManager = new VariablesPoorlyUsedManager();
+    private final ConditionsToReviewManager conditionsToReviewManager = new ConditionsToReviewManager();
+    private final DuplicatedCodeManager duplicatedCodeManager = new DuplicatedCodeManager();
     
 
     public void writeLineByLineLists(String lineNumber, String codeLine){
@@ -67,8 +66,8 @@ public class ListMasterManager {
                 constantsFoundManager.writeConstantFoundInList(lineNumber, codeLine);
                 functionsCalledManager.writeFunctionsCalledList(lineNumber, codeLine);
                 formsCalledManager.writeFormsCalledList(codeLine);
-                formsManager.writeFormsInCodeList(lineNumber, codeLine);
-                listedNERsManager.writeListedNERsList(lineNumber, codeLine);
+                formsManager.writeFormsInCodeList(codeLine);
+                listedNERsManager.writeListedNERsList(codeLine);
                 missingNamesManager.writeMissingNamesList(lineNumber, codeLine);
                 parametersNotPassedManager.writeParametersNotPassedList(lineNumber, codeLine);
                 queriesInCodeManager.writeQueriesInCodeList(lineNumber, codeLine);
@@ -84,11 +83,10 @@ public class ListMasterManager {
         }    
     }
        
-    public void writeFullCodeBasedManagerLists (ObservableList<String> codeList, ObservableList<String> codeListWithLineNumbers){
+    void writeFullCodeBasedManagerLists(ObservableList<String> codeList, ObservableList<String> codeListWithLineNumbers){
         VariableFinder variableFinder = new VariableFinder(codeList);
         
-        ObservableList<String> variablesInCode = FXCollections.observableArrayList();
-        variablesInCode = variableFinder.retrieveVariableList();
+        ObservableList<String> variablesInCode = variableFinder.retrieveVariableList();
      
         variablesNotUsedManager.setVariablesFoundList(variablesInCode);
         variablesNotUsedManager.writeVariablesNotUsedList(codeList);

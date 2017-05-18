@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 
 
 public class VariablesNotUsedManager {
-    private ObservableList<String> variablesNotUsedList = FXCollections.observableArrayList();
+    private final ObservableList<String> variablesNotUsedList = FXCollections.observableArrayList();
     private ObservableList<String> variablesFoundList = FXCollections.observableArrayList();
 
     
